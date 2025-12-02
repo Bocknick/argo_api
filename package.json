@@ -1,0 +1,20 @@
+{
+  "name": "qc_app",
+  "version": "1.0.0",
+  "description": "\"App for visualizing global DOXY WOA anomaly data\"",
+  "main": "Leaflet.Graticule.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon qc_app_api.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mssql": "^12.0.0",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.10",
+    "pm2": "^6.0.13"
+  }
+}
