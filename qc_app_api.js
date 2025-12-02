@@ -19,6 +19,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 const qc_routes = require('./routes/qc_routes')
+const val_routes = require('./routes/val_routes')
 app.use(qc_routes);
 
 
