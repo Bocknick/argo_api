@@ -1,6 +1,7 @@
+base_path = 'https://whimbrel.mbari.org/'
 async function get_wmos(goShip_only,max_dist){
   let meta_data;
-  const node_route = 'http://localhost:3000/get_wmo/'+max_dist.toString()
+  const node_route = base_path + 'get_wmo/'+max_dist.toString()
   try{
     const response = await fetch(node_route, {method: 'GET' });
     if(!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -26,7 +27,7 @@ async function get_map_data(selected_param,max_dist){
   param_test = possible_params.map(row => row === selected_param)
   selected_units = possible_units.filter((_,i)=>param_test[i]);
   legend_title = selected_param + " ("+selected_units+")";
-  const node_route = 'http://localhost:3000/map_data/'
+  const node_route = base_path+'map_data/';
 
   let metrics_data
   let metrics_error
@@ -225,8 +226,9 @@ async function get_profile_data(selected_params){
   }
 
   const param_names = bottle_params.concat(float_params,'depth');
-  const node_route = 'http://localhost:3000/val_app/'+param_names.toString()
-  
+
+  const node_route = base_path + 'val_app' + param_names.toString()
+
   //The entire fetch statement here is embedded within a try/catch structure
   //in order to avoid uncaught errors when they occur.
   try {
