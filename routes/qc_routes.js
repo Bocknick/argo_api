@@ -17,9 +17,9 @@ const config = {
 
 const pool = sql.connect(config)
 
-router.get('/qc_app', (req, res, next) => {
+router.get('/audit_app', (req, res, next) => {
   console.log("path accessed")
-  index_path = path.join(__dirname,'..','public','qc_index.html')
+  index_path = path.join(__dirname,'..','public','audit_index.html')
   res.sendFile(index_path);
 });
 
