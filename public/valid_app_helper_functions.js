@@ -227,7 +227,7 @@ async function get_profile_data(selected_params){
 
   const param_names = bottle_params.concat(float_params,'depth');
 
-  const node_route = base_path + 'val_app' + param_names.toString()
+  const node_route = base_path + 'val_app/' + param_names.toString()
 
   //The entire fetch statement here is embedded within a try/catch structure
   //in order to avoid uncaught errors when they occur.
