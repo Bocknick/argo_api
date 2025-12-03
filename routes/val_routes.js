@@ -17,14 +17,9 @@ const config = {
 
 const pool = sql.connect(config)
 
-router.get('/index', (req, res, next) => {
-  console.log("path accessed")
-  index_path = path.join(__dirname,'..','public','index.html')
+router.get('/val_app', (req, res, next) => {
+  index_path = path.join(__dirname,'..','public','val_index.html')
   res.sendFile(index_path);
-});
-
-router.get('/test', (req, res, next) => {
-  console.log("test route accessed")
 });
 
 //NOTE! The callback function in router.get has to be asynchronous in order
@@ -34,11 +29,7 @@ router.get('/val_app/:param_names', async(req, res, next) => {
     //after params/. get_profile_data appends a list of parameters to /params. The
     //list of parameters can then be extracted using req.params.param_names.
     const selected_columns = req.params.param_names
-    const query = `SELECT ${selected_columns},WMO,CRUISE FROM profile_data 
-                   INNER JOIN wmo_matchup 
-                   ON profile_data.WMO_ID = wmo_matchup.WMO_ID 
-                   INNER JOIN cruise_matchup 
-                   ON profile_data.CRUISE_ID = cruise_matchup.CRUISE_ID`
+    const query = `SELECT ${selected_columns},WMO,CRUISE FROM [shipboard.profile_data]`
 
     try{
         //The following resolves the pool promise. The result, connected_pool,
@@ -58,12 +49,31 @@ router.get('/val_app/:param_names', async(req, res, next) => {
     }
 });
 
-router.get('/map_data',async(req,res,next)=>{
+router.get('/get_wmo/:max_distance',async(req,res,next)=>{
+  const max_distance = req.params.max_distance;
     try{
         const connected_pool = await pool
-        const result = await connected_pool.request().query(`SELECT meta_data.WMO, GO_SHIP FROM meta_data
-                                                            INNER JOIN wmo_matchup
-                                                            ON meta_data.WMO_ID = wmo_matchup.WMO_ID`); 
+        const result = await connected_pool.request()
+        .input("max_distance",max_distance)
+        .query(`SELECT * FROM [shipboard.meta_data]
+                WHERE DIST < @max_distance`); 
+        res.json(result.recordset)
+    }catch (err) {
+         console.error('Database error:', err);
+         res.status(500).json({ error: err.message });
+    }
+})
+
+router.post('/map_data',async(req,res,next)=>{
+  const max_distance = req.body.max_dist;
+  const selected_param = req.body.selected_param;
+    try{
+        const connected_pool = await pool
+        const result = await connected_pool.request()
+        .input("max_distance",max_distance)
+        .input("selected_param",selected_param)
+        .query(`SELECT * FROM [shipboard.anomaly_data]
+                WHERE DIST < @max_distance AND PARAM = @selected_param`); 
         res.json(result.recordset)
     }catch (err) {
          console.error('Database error:', err);

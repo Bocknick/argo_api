@@ -17,15 +17,12 @@ const config = {
 
 const pool = sql.connect(config)
 
-router.get('/audit_app', (req, res, next) => {
+router.get('/qc_app', (req, res, next) => {
   console.log("path accessed")
-  index_path = path.join(__dirname,'..','public','index.html')
+  index_path = path.join(__dirname,'..','public','qc_index.html')
   res.sendFile(index_path);
 });
 
-router.get('/test', (req, res, next) => {
-  console.log("test route accessed")
-});
 
 router.post('/FLT_SURF', async(req, res, next) => {
     const thresh = req.body.thresh;
@@ -113,23 +110,7 @@ router.post('/post_qc_list', async(req,res, next) =>{
                 VALUES (@param, @cycle, @gain, @offset, @drift)
             `);
     }
-})
-
-router.post('/TEST_ROUTE', async(req, res, next) => {
-    const thresh = req.body.thresh;
-    const query = `SELECT WMO, ID, LON, LAT, SURF_GAIN_Z AS METRIC
-                   FROM doxy_qc_meta 
-                   WHERE abs(SURF_GAIN_Z) >= 2`
-
-    try{
-        const connected_pool = await pool
-        const result = await connected_pool.request().query(query); 
-        res.json(result.recordset)
-    }catch (err) {
-         console.error('Database error:', err);
-         res.status(500).json({ error: err.message });
-    }
-});
+})  
 
 router.post('/DEEP_GAIN', async(req, res, next) => {
     const thresh = req.body.thresh;
