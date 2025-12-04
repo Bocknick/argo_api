@@ -6,7 +6,7 @@ const sql = require('mssql');
 //Create connection string
 const config = {
   user: 'pelican-ro',
-  password: ' mbari-deepsea-1',
+  password: 'mbari-deepsea-1',
   server: 'foggy',   
   database: 'PELICAN',
   options: {
@@ -18,7 +18,7 @@ const config = {
 const pool = sql.connect(config)
 
 router.get('/val_app', (req, res, next) => {
-  index_path = path.join(__dirname,'..','public','val_index.html')
+  index_path = path.join(__dirname,'..','views','val_index.html')
   res.sendFile(index_path);
 });
 

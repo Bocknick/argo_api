@@ -19,7 +19,7 @@ const pool = sql.connect(config)
 
 router.get('/audit_app', (req, res, next) => {
   console.log("path accessed")
-  index_path = path.join(__dirname,'..','public','audit_index.html')
+  index_path = path.join(__dirname,'..','views','audit_index.html')
   res.sendFile(index_path);
 });
 
