@@ -1,13 +1,13 @@
 {
-  "name": "qc_app",
+  "name": "argo_api",
   "version": "1.0.0",
-  "description": "\"App for visualizing global DOXY WOA anomaly data\"",
+  "description": "\"Node.js server for hosting GO-BGC web apps and API routes\"",
   "main": "Leaflet.Graticule.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon argo_api.js"
   },
-  "author": "",
+  "author": "Nicholas Bock",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
