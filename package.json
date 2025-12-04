@@ -5,7 +5,7 @@
   "main": "Leaflet.Graticule.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon qc_app_api.js"
+    "start": "nodemon argo_api.js"
   },
   "author": "",
   "license": "ISC",

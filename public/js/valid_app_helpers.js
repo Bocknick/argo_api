@@ -554,9 +554,9 @@ function make_plot(plot_data,plot_type,selected_wmos,do_log,do_reg){
 
       if(diff_plot_data.length > 3 & do_reg === false & same_units === true){
         //Filter diff data to only retain non-null values
-        diff_mean = ss.mean(diff_plot_data).toFixed(2)
-        diff_sd = ss.standardDeviation(diff_plot_data).toFixed(2)
-        diff_med = ss.median(diff_plot_data).toFixed(2)
+        diff_mean = ss.mean(diff_plot_data).toFixed(3)
+        diff_sd = ss.standardDeviation(diff_plot_data).toFixed(3)
+        diff_med = ss.median(diff_plot_data).toFixed(3)
         stat_string = [`<b>Float-Bottle</b>`,`N = ${diff_plot_data.length}`,`Mean: ${diff_mean}`,
           `Median: ${diff_med}`,`SD: ${diff_sd}`]
         //Note that 
